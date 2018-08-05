@@ -5,6 +5,7 @@ module.exports = {
   ],
   env: {
     browser: true,
+    es6: true,
   },
   plugins: [
     'prettier',
@@ -13,6 +14,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
+  },
+  globals: {
+    hyperapp: true,
+    C: true,
+    CS: true,
   },
   rules: {
     "prettier/prettier": ['error', {

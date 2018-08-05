@@ -1,3 +1,8 @@
 node_modules/
 dist/
+.vscode
+package-lock.json
 *.log
+
+src/hyperapp.min.js
+src/app-build
