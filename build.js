@@ -72,10 +72,7 @@ const buildJs = jsSource => {
 
 const buildHtml = (js, dest) => {
   console.log(chalk.gray('Building HTML...'))
-  fs.writeFileSync(
-    dest,
-    `<!doctype html><style id="s" /></style><div id="a"><script>${js}</script>`,
-  )
+  fs.writeFileSync(dest, `<!doctype html><div id="a"><script>${js}</script>`)
 }
 
 const prev = previousSize()

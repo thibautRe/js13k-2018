@@ -3,16 +3,6 @@
   // eslint-disable-next-line
   window.h = hyperapp.h
 
-  // InsertRule shorthand
-  const style = document.createElement('style')
-  // Webkit hack
-  style.appendChild(document.createTextNode(''))
-  document.head.appendChild(style)
-  window.C = rule => style.sheet.insertRule(rule)
-
-  // CSS Reset
-  window.C('body{padding:0;background:#FC0;}')
-
   // state
   const State = {
     count: 0,

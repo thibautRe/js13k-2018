@@ -3,8 +3,8 @@
   const shadow = color => `text-shadow:0 0 5px ${color};transition:none`
   const baseCounter = CS(`font-size:15px;transition:text-shadow 1s;`)
   const flashTypes = {
-    '+': CS(shadow('green'), baseCounter),
-    '-': CS(shadow('red'), baseCounter),
+    '+': CS(shadow('green')),
+    '-': CS(shadow('red')),
   }
 
   exports.Counter = ({ flash }, children) => (
