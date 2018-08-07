@@ -7,22 +7,26 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "babel -w src/app -d src/app-build",
-    "build": "node build.js",
-    "postinstall": "cp node_modules/hyperapp/dist/hyperapp.js src/hyperapp.min.js",
-    "prebuild": "concat-cli -f node_modules/hyperapp/dist/hyperapp.js --f src/app/*.js -o dist/tmp-concat.js -f src/app/**/*.js"
+    "start": "node cli/index.js dev",
+    "build": "node cli/index.js",
+    "postinstall": "cp node_modules/hyperapp/dist/hyperapp.js src/hyperapp.min.js"
   },
   "devDependencies": {
     "archiver": "^2.0.0",
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-minify": "^0.4.3",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "chalk": "^2.4.1",
+    "chokidar": "^2.0.4",
     "concat-cli": "^4.0.0",
     "eslint": "^5.2.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",
+    "fs-extra": "^7.0.0",
+    "log-update": "^2.3.0",
+    "meow": "^5.0.0",
     "prettier": "^1.14.0"
   },
   "dependencies": {

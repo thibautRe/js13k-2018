@@ -3,7 +3,7 @@
   const { sheet } = document.head.appendChild(document.createElement('style'))
 
   // CSS Reset
-  sheet.insertRule('body{padding:0;background:#FC0;}')
+  sheet.insertRule('body{padding:0;background:#FC0;color:#333}')
 
   // This helpers generates a CSS class and insert its style in the body.
   // It returns the generated CSS class

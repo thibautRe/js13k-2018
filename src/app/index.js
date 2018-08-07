@@ -12,7 +12,7 @@
   // Actions
   const Actions = {
     upLater: value => async (state, actions) => {
-      await new Promise(r => setTimeout(r, 1000))
+      await new Promise(r => setTimeout(r, 100))
       actions.up(value)
     },
     up: value => (state, actions) => {
