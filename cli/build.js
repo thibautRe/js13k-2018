@@ -4,8 +4,6 @@ const minify = require('babel-minify')
 const babel = require('babel-core')
 const { execSync } = require('child_process')
 
-const prepareMessage = require('./prepare-message')
-
 let previousSize = (() => {
   if (fs.existsSync('dist/build.zip')) {
     return parseInt(execSync(`wc -c < dist/build.zip`).toString())
