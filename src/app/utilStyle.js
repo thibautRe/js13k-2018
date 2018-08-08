@@ -4,9 +4,9 @@
 
   // CSS Reset
   sheet.insertRule(
-    `body{padding:0;background:#FC0;color:#333;font-family:"Century Gothic";font-weight:100;}`,
+    `body{padding:0;background:#FC0;color:#30303F;font-family:"Century Gothic";font-weight:100;letter-spacing:0.2;}`,
   )
-  sheet.insertRule(`button{font-family:inherit;}`)
+  sheet.insertRule(`button,input{font-family:inherit;}`)
 
   // This helpers generates a CSS class and insert its style in the body.
   // It returns the generated CSS class

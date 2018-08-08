@@ -3,31 +3,44 @@
   // eslint-disable-next-line
   window.h = hyperapp.h
 
-  // state
+  window.HLP = {
+    // Timer helper
+    T: time => new Promise(r => setTimeout(r, time * 1000)),
+  }
+
   const State = {
     count: 0,
     flash: false,
+    Intro: {
+      step: 0,
+    },
   }
 
-  // Actions
   const Actions = {
+    Intro: {
+      start: () => async (state, actions) => {
+        await HLP.T(4)
+        actions.changeStep(1)
+      },
+      changeStep: step => ({ step }),
+    },
     upLater: value => async (state, actions) => {
-      await new Promise(r => setTimeout(r, 100))
+      await new Promise(r => setTimeout(r, 1000))
       actions.up(value)
     },
     up: value => (state, actions) => {
       setTimeout(actions.endFlash, 15)
       return { count: state.count + value, flash: value > 0 ? '+' : '-' }
     },
-    endFlash: () => () => ({ flash: false }),
+    endFlash: () => ({ flash: false }),
   }
 
   const View = (state, actions) => (
     <div>
-      <h1>Hello there</h1>
+      <Intro />
       <Counter flash={state.flash}>{state.count}</Counter>
       <button onclick={() => actions.up(1)}>Button</button>
-      <button onclick={() => actions.upLater(10)}>Up by 10 later</button>
+      <button onclick={() => actions.upLater(10)}>Up by 10 soon</button>
       <Up by={2} />
     </div>
   )

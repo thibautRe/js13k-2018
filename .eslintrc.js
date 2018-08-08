@@ -19,6 +19,7 @@ module.exports = {
     hyperapp: true,
     C: true,
     CS: true,
+    HLP: true,
   },
   rules: {
     "prettier/prettier": ['error', {
