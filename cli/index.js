@@ -2,7 +2,7 @@
 const build = require('./build')
 const watch = require('./watch')
 const prepareMessage = require('./prepare-message')
-const { addStat } = require('./stats')
+const { addZipStat } = require('./stats')
 
 const dev = process.argv[2] === 'dev'
 
@@ -14,7 +14,7 @@ if (!dev) {
   console.log(prepareMessage(bytes, prev))
 
   // Save the stats
-  addStat(bytes)
+  addZipStat(bytes)
 } else {
   watch()
 }

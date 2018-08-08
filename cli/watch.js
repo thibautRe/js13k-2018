@@ -8,7 +8,7 @@ const chalk = require('chalk')
 
 const build = require('./build')
 const prepareMessage = require('./prepare-message')
-const { addStat } = require('./stats')
+const { addErrorStat, addZipStat } = require('./stats')
 
 // Keep track of if the initial scan has been performed already
 let isReady = false
@@ -19,7 +19,7 @@ const devZipBuild = () => {
   // Rebuild the zip file
   const { bytes, prev, sess } = build()
   logUpdate(prepareMessage(bytes, prev, sess))
-  addStat(bytes)
+  addZipStat(bytes)
   logUpdate.done()
 }
 
@@ -48,7 +48,7 @@ const devRebuild = file => {
       console.error(e.codeFrame)
       /* eslint-enable no-console */
 
-      addStat('error')
+      addErrorStat()
       return
     }
 
