@@ -6,3 +6,4 @@ package-lock.json
 
 src/hyperapp.min.js
 src/app-build
+src/stats.js

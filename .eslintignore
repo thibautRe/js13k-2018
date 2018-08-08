@@ -1,3 +1,4 @@
 dist/
 src/app-build/
 src/*.min.js
+src/stats.js

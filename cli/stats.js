@@ -18,6 +18,26 @@ const addStat = stat => {
   }
 }
 
+const addDevSize = (bytes, prev, sess) => {
+  fs.writeFileSync(
+    'src/stats.js',
+    `
+    window.ZIP_SIZE = ${bytes};
+    window.PREV_SIZE = ${prev};
+    window.SESS_SIZE = ${sess};
+  `,
+  )
+}
+
+const clearDevSize = () => {
+  try {
+    fs.unlinkSync('src/stats.js')
+  } catch (e) {
+    if (e.code === 'ENOENT') return
+    throw e
+  }
+}
+
 const addZipStat = bytes => {
   // No dupes
   if (bytes === previousBytes) return
@@ -32,5 +52,7 @@ const addErrorStat = () => {
 module.exports = {
   addStat,
   addZipStat,
+  addDevSize,
   addErrorStat,
+  clearDevSize,
 }
