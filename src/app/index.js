@@ -16,7 +16,7 @@
       actions.up(value)
     },
     up: value => (state, actions) => {
-      requestAnimationFrame(actions.endFlash)
+      setTimeout(actions.endFlash, 15)
       return { count: state.count + value, flash: value > 0 ? '+' : '-' }
     },
     endFlash: () => () => ({ flash: false }),
