@@ -26,7 +26,8 @@ const buildZip = (source, dest) => {
 
 const buildJs = jsSource => {
   const { code } = babel.transformFileSync(jsSource)
-  return minify(code).code
+
+  return minify(code.replace('__DEV__', 'false')).code
 }
 
 const buildHtml = (js, dest) => {
