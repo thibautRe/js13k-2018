@@ -19,6 +19,8 @@
     return (diff > 0 ? '+' : '') + diff + '%'
   }
 
+  /* global h */
+
   const Stats = ({ bytes, sess }) =>
     // prettier-ignore
     h('div', { class: wrapper }, bytes !== undefined ? [
