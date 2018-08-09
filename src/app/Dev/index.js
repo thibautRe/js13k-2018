@@ -1,4 +1,4 @@
-;(() => {
+if (__DEV__) {
   const wrapper = CS(`
     position:fixed;
     z-index:1000;
@@ -19,19 +19,20 @@
     return (diff > 0 ? '+' : '') + diff + '%'
   }
 
-  /* global h */
-
-  const Stats = ({ bytes, sess }) =>
-    // prettier-ignore
-    h('div', { class: wrapper }, bytes !== undefined ? [
-      'Size: ',
-      h('strong', { style: { fontWeight: 'bold' } }, bytes),
-      ' bytes ',
-      h('span', {class: sess > bytes ? green : red},[
-        sess > bytes ? '↘️ ' : '↗️ ',
-        makeSignedDiff(bytes, sess),
-      ]),
-    ] : '🔄 Rebuilding zip...')
+  const Stats = ({ bytes, sess }) => (
+    <div class={wrapper}>
+      {bytes !== undefined ? (
+        <span>
+          Size: <strong style={{ fontWeight: 'bold' }}>{bytes}</strong> bytes
+          <span class={sess !== bytes && (sess > bytes ? green : red)}>
+            {sess > bytes ? '↘️ ' : '↗️ '} {makeSignedDiff(bytes, sess)}
+          </span>
+        </span>
+      ) : (
+        '🔄 Rebuilding zip...'
+      )}
+    </div>
+  )
 
   const state = {
     bytes: window.ZIP_SIZE,
@@ -42,4 +43,4 @@
   const actions = {}
 
   hyperapp.app(state, actions, Stats, document.getElementById('dev'))
-})()
+}

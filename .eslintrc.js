@@ -20,6 +20,7 @@ module.exports = {
     C: true,
     CS: true,
     HLP: true,
+    __DEV__: true,
   },
   rules: {
     "prettier/prettier": ['error', {
