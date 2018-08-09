@@ -5,7 +5,13 @@
 
   window.Intro = () => (state, actions) => (
     <div class={wrapper} oncreate={actions.Intro.start}>
-      {['Hi.', 'How are you?'][state.Intro.step]}
+      {state.Intro.step == 0 && 'Hi.'}
+      {state.Intro.step == 1 && (
+        <Text>
+          Hello ¤0world¤0, how ¤2are you¤2 doing ¤1today¤1? Happy to ¤1see¤1 you
+          again
+        </Text>
+      )}
     </div>
   )
 })(window)

@@ -11,13 +11,19 @@
   // This helpers generates a CSS class and insert its style in the body.
   // It returns the generated CSS class
   // An optional classNameAdd can be added in order to increase specificity.
-  let globalClassName = 0
+  let globalID = 0
   module.CS = style => {
     // Generate className
-    const className = '_' + globalClassName++
-    const rule = `.${className}{${style}}`
-    sheet.insertRule(rule, sheet.cssRules.length)
+    const className = '_' + globalID++
+    module.C(`.${className}{${style}}`)
     return className
+  }
+
+  // Helper to generate keyframes
+  module.CS.K = style => {
+    const keyframeName = '_' + globalID++
+    module.C(`@keyframes ${keyframeName}{${style}}`)
+    return keyframeName
   }
 
   // Low level export of insertRule
