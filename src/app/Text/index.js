@@ -2,7 +2,7 @@
   const effect0 = CS('color: #e5625b;font-weight:bold;')
   const effect1 = CS('font-size:.8em;')
   // Generate random positions
-  const getEffect2Keyframes = (frames = 50, intensity = 3) =>
+  const getEffect2Keyframes = (frames = 50, intensity = 2) =>
     CS.K(
       new Array(frames)
         .fill()
@@ -18,6 +18,8 @@
     CS(
       `animation:5s infinite ${getEffect2Keyframes()};display:inline-block;white-space:pre;`,
     )
+  const text = CS('position:absolute;transition: opacity 1s;opacity:0;')
+  const textVisible = CS('opacity: 1;')
 
   const effects = [
     text => <span class={effect0}>{text}</span>,
@@ -45,5 +47,19 @@
     return result.concat(rest)
   }
 
-  window.Text = (_, children) => <div>{parser(children[0])}</div>
+  window.Text = (_, children) => (
+    <div
+      key={children[0]}
+      class={text}
+      oncreate={element =>
+        setTimeout(() => element.classList.add(textVisible), 15)
+      }
+      onremove={(element, done) => {
+        element.classList.remove(textVisible)
+        setTimeout(done, 1000)
+      }}
+    >
+      {parser(children[0])}
+    </div>
+  )
 })(window)
