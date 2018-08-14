@@ -5,7 +5,7 @@
 
   window.Intro = () => (state, actions) => (
     <div class={wrapper} oncreate={actions.Intro.start}>
-      <Text>
+      <Text actions={state.Intro.step === 4 ? ['Yes', 'No'] : undefined}>
         {
           [
             '',

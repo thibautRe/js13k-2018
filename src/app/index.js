@@ -21,11 +21,11 @@
       start: () => async (state, actions) => {
         await HLP.T(1)
         actions.changeStep(1)
-        await HLP.T(3)
+        await HLP.T(1)
         actions.changeStep(2)
-        await HLP.T(4)
-        actions.changeStep(3)
         await HLP.T(2)
+        actions.changeStep(3)
+        await HLP.T(1)
         actions.changeStep(4)
       },
       changeStep: step => ({ step }),

@@ -84,7 +84,14 @@
     })
   }
 
-  window.Text = (_, children) => (
+  const actionsWrapper = CS(
+    'display:flex;justify-content:center;margin-top:20px;',
+  )
+  const actionButton = CS(
+    'padding:20px 10px;margin:0 20px;background:transparent;border:none;cursor:pointer;',
+  )
+
+  window.Text = ({ actions = [], onAnswer = () => {} }, children) => (
     <div
       key={children[0]}
       class={text}
@@ -99,6 +106,13 @@
       }}
     >
       {splitSpaces(parser(children[0]))}
+      <div class={actionsWrapper}>
+        {actions.map(action => (
+          <button class={actionButton} onclick={() => onAnswer(action)}>
+            {action}
+          </button>
+        ))}
+      </div>
     </div>
   )
 })(window)
