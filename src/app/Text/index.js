@@ -88,8 +88,9 @@
     'display:flex;justify-content:center;margin-top:20px;',
   )
   const actionButton = CS(
-    'padding:20px 10px;margin:0 20px;background:transparent;border:none;cursor:pointer;',
+    'padding:10px 20px;margin:0 20px;background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:.15s ease;',
   )
+  C(`.${actionButton}:hover{background:#FFF;box-shadow:0 2px 3px #3352;}`)
 
   window.Text = ({ actions = [], onAnswer = () => {} }, children) => (
     <div
