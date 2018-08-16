@@ -4,13 +4,12 @@
 
   // CSS Reset
   sheet.insertRule(
-    `body{padding:0;background:#FC0;color:#30303F;font-family:"Century Gothic";font-weight:100;letter-spacing:0.2;}`,
+    `body{padding:0;color:#30303F;font-family:"Century Gothic";font-weight:100;letter-spacing:0.065em;background:#F9F8FF}`,
   )
   sheet.insertRule(`button,input{font-family:inherit;}`)
 
   // This helpers generates a CSS class and insert its style in the body.
   // It returns the generated CSS class
-  // An optional classNameAdd can be added in order to increase specificity.
   let globalID = 0
   module.CS = style => {
     // Generate className

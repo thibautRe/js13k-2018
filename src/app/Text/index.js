@@ -20,7 +20,7 @@
     )
   const effect2 = CS('display:inline-block;')
   const text = CS(
-    'position:absolute;max-width:700px;transition: opacity 1s;opacity:0;',
+    'position:absolute;max-width:700px;transition: opacity 1s;opacity:0;text-align:center',
   )
   const textVisible = CS('opacity: 1;')
 
@@ -85,32 +85,50 @@
   }
 
   const actionsWrapper = CS(
-    'display:flex;justify-content:center;margin-top:20px;',
+    'display:flex;justify-content:center;margin-top:20px;opacity:0;transition:.3s',
   )
+  const actionsWrapperShow = CS('opacity:1')
   const actionButton = CS(
     'padding:10px 20px;margin:0 20px;background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:.15s ease;',
   )
   C(`.${actionButton}:hover{background:#FFF;box-shadow:0 2px 3px #3352;}`)
 
-  window.Text = ({ actions = [], onAnswer = () => {} }, children) => (
+  // actions = arrayof(shape({ text, target }))
+  window.Text = ({ act = [], actStep, actions = [], onAnswer = () => {} }) => (
+    state,
+    topLevelActions,
+  ) => (
     <div
-      key={children[0]}
+      key={act[actStep]}
       class={text}
-      // Enter animation
-      oncreate={element =>
-        setTimeout(() => element.classList.add(textVisible), 15)
-      }
+      oncreate={async element => {
+        // Enter animation
+        await HLP.T(0.015)
+        element.classList.add(textVisible)
+
+        // Pass to next step
+        if (actStep < act.length - 2) {
+          await HLP.T(1)
+          topLevelActions.acts.nextStep()
+        }
+      }}
       // Exit animation
       onremove={(element, done) => {
         element.classList.remove(textVisible)
         setTimeout(done, 1000)
       }}
     >
-      {splitSpaces(parser(children[0]))}
-      <div class={actionsWrapper}>
+      {splitSpaces(parser(act[actStep]))}
+      <div
+        class={actionsWrapper}
+        oncreate={async element => {
+          await HLP.T(0.5)
+          element.classList.add(actionsWrapperShow)
+        }}
+      >
         {actions.map(action => (
-          <button class={actionButton} onclick={() => onAnswer(action)}>
-            {action}
+          <button class={actionButton} onclick={() => onAnswer(action.target)}>
+            {action.text}
           </button>
         ))}
       </div>
