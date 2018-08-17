@@ -1,22 +1,29 @@
 ;(window => {
   const wrapper = CS(
-    'position:absolute;top:0;left:0;bottom:0;right:0;display:flex;align-items:center;justify-content:center;font-size:22px;',
+    'position:absolute;top:0;left:0;bottom:0;right:0;display:flex;align-items:center;justify-content:center;padding:40px;font-size:22px;',
   )
 
   const allActs = {
     Intro: [
       '',
-      'Hi.',
+      'Hello.',
       'How are you?',
-      '',
-      'Have you been good %2chupchup%2?',
-      'Yes:Good|No:NotGood',
+      "Pretty okay:Intro2|I'm alright:Intro2",
     ],
-    Good: ["That's good", 'I was kidding:NotGood'],
-    NotGood: [
-      "That's very bad fåfå!",
-      'I was actually good:Good|I wanna restart:Intro',
+    Intro2: [
+      "Alright. That's good.",
+      'I guess...',
+      '...',
+      '...Anyway.',
+      'Welcome!',
+      'Where am I?:IntroWhere|Who are you?:NotImplemented',
     ],
+    IntroWhere: [
+      'Really?',
+      'Are you really asking me this?',
+      'Sorry:NotImplemented',
+    ],
+    NotImplemented: ['Not implemented', 'Back to start:Intro'],
   }
 
   const parseActions = actionString =>
@@ -25,7 +32,7 @@
       .map(singleActionString => singleActionString.split(':'))
       .map(([text, target]) => ({ text, target }))
 
-  window.Act = () => ({ acts: { name, step } }, actions) => (
+  window.Act = () => ({ acts: { name, step } }) => (
     <div class={wrapper}>
       <Text
         act={allActs[name]}
@@ -35,7 +42,6 @@
             ? parseActions(allActs[name][step + 1])
             : undefined
         }
-        onAnswer={actions.acts.changeAct}
       />
     </div>
   )

@@ -85,16 +85,18 @@
   }
 
   const actionsWrapper = CS(
-    'display:flex;justify-content:center;margin-top:20px;opacity:0;transition:.3s',
+    'display:flex;justify-content:center;margin-top:20px;',
   )
-  const actionsWrapperShow = CS('opacity:1')
   const actionButton = CS(
-    'padding:10px 20px;margin:0 20px;background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:.15s ease;',
+    'padding:10px 20px;margin:0 20px;background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:14px;transform:scale(1.3) translateY(10px);opacity:0;transition:.15s ease;',
   )
-  C(`.${actionButton}:hover{background:#FFF;box-shadow:0 2px 3px #3352;}`)
+  const actionButtonShow = CS('transform:none;opacity:1;')
+  C(
+    `.${actionButton}:hover{background:#FFF;box-shadow:0 2px 3px #3352;transition-delay:0s !important;}`,
+  )
 
   // actions = arrayof(shape({ text, target }))
-  window.Text = ({ act = [], actStep, actions = [], onAnswer = () => {} }) => (
+  window.Text = ({ act = [], actStep, actions = [] }) => (
     state,
     topLevelActions,
   ) => (
@@ -119,15 +121,17 @@
       }}
     >
       {splitSpaces(parser(act[actStep]))}
-      <div
-        class={actionsWrapper}
-        oncreate={async element => {
-          await HLP.T(0.5)
-          element.classList.add(actionsWrapperShow)
-        }}
-      >
-        {actions.map(action => (
-          <button class={actionButton} onclick={() => onAnswer(action.target)}>
+      <div class={actionsWrapper}>
+        {actions.map((action, actionIndex) => (
+          <button
+            class={actionButton}
+            oncreate={async element => {
+              await HLP.T(1)
+              element.classList.add(actionButtonShow)
+            }}
+            style={{ transitionDelay: actionIndex * 0.5 + 's' }}
+            onclick={() => topLevelActions.acts.changeAct(action.target)}
+          >
             {action.text}
           </button>
         ))}
