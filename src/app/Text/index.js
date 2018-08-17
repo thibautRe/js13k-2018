@@ -88,12 +88,21 @@
     'display:flex;justify-content:center;margin-top:20px;',
   )
   const actionButton = CS(
-    'padding:10px 20px;margin:0 20px;background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:14px;transform:scale(1.3) translateY(10px);opacity:0;transition:.15s ease;',
+    'padding:10px 20px;margin:0 20px;background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:14px;transform:scale(1.1) translateY(10px);opacity:0;transition:.15s ease;',
   )
   const actionButtonShow = CS('transform:none;opacity:1;')
   C(
     `.${actionButton}:hover{background:#FFF;box-shadow:0 2px 3px #3352;transition-delay:0s !important;}`,
   )
+
+  // Retrives the number at the beginning of the string (the time to wait)
+  // and the text that follows
+  const parseTimeToWait = step => {
+    const ttw = step.match(/^[0-9.]+/)
+    return ttw
+      ? { text: step.slice(ttw[0].length), ttw: parseInt(ttw[0]) }
+      : { text: step }
+  }
 
   // actions = arrayof(shape({ text, target }))
   window.Text = ({ act = [], actStep, actions = [] }) => (
@@ -110,7 +119,9 @@
 
         // Pass to next step
         if (actStep < act.length - 2) {
-          await HLP.T(1)
+          // The time to wait until the next step is the number at the
+          // beginning of the string, if any, or 1 second.
+          await HLP.T(parseTimeToWait(act[actStep]).ttw || 1)
           topLevelActions.acts.nextStep()
         }
       }}
@@ -120,16 +131,17 @@
         setTimeout(done, 1000)
       }}
     >
-      {splitSpaces(parser(act[actStep]))}
+      {splitSpaces(parser(parseTimeToWait(act[actStep]).text))}
       <div class={actionsWrapper}>
         {actions.map((action, actionIndex) => (
           <button
             class={actionButton}
             oncreate={async element => {
-              await HLP.T(1)
+              await HLP.T(
+                actionIndex * 0.5 + (parseTimeToWait(act[actStep]).ttw || 1),
+              )
               element.classList.add(actionButtonShow)
             }}
-            style={{ transitionDelay: actionIndex * 0.5 + 's' }}
             onclick={() => topLevelActions.acts.changeAct(action.target)}
           >
             {action.text}

@@ -6,21 +6,21 @@
   const allActs = {
     Intro: [
       '',
-      'Hello.',
-      'How are you?',
+      '2Hello.',
+      '2How are you?',
       "Pretty okay:Intro2|I'm alright:Intro2",
     ],
     Intro2: [
-      "Alright. That's good.",
-      'I guess...',
-      '...',
-      '...Anyway.',
+      "3Alright. That's good.",
+      '2I guess...',
+      '2 ...',
+      '2 ...Anyway.',
       'Welcome!',
       'Where am I?:IntroWhere|Who are you?:NotImplemented',
     ],
     IntroWhere: [
       'Really?',
-      'Are you really asking me this?',
+      'Are you %2really%2 asking me this?',
       'Sorry:NotImplemented',
     ],
     NotImplemented: ['Not implemented', 'Back to start:Intro'],
