@@ -19,6 +19,7 @@
       `animation:5s infinite ${getEffect2Keyframes()};display:inline-block;white-space:pre;`,
     )
   const effect2 = CS('display:inline-block;')
+  const effect3 = CS('font-style:italic;')
   const text = CS(
     'position:absolute;max-width:700px;transition: opacity 1s;opacity:0;text-align:center',
   )
@@ -34,6 +35,7 @@
         ))}
       </span>
     ),
+    text => <span class={effect3}>{splitSpaces([text])}</span>,
   ]
 
   const getTextEffect = type => effects[type]
