@@ -16,6 +16,7 @@ module.exports = {
     sourceType: 'module',
   },
   globals: {
+    h: true,
     hyperapp: true,
     C: true,
     CS: true,

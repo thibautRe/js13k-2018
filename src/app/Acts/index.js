@@ -34,15 +34,20 @@
 
   window.Act = () => ({ acts: { name, step } }) => (
     <div class={wrapper}>
-      <Text
-        act={allActs[name]}
-        actStep={step}
-        actions={
-          step === allActs[name].length - 2
-            ? parseActions(allActs[name][step + 1])
-            : undefined
-        }
-      />
+      {/* Text arrays */}
+      {Array.isArray(allActs[name]) && (
+        <Text
+          act={allActs[name]}
+          actStep={step}
+          actions={
+            step === allActs[name].length - 2
+              ? parseActions(allActs[name][step + 1])
+              : undefined
+          }
+        />
+      )}
+      {/* Element */}
+      {typeof allActs[name] === 'function' && h(allActs[name])}
     </div>
   )
 })(window)
