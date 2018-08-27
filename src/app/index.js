@@ -10,8 +10,11 @@
 
   const State = {
     acts: {
-      name: 'Intro',
+      name: 'IntroWhat',
       step: 0,
+    },
+    ui: {
+      stats: false,
     },
   }
 
@@ -25,9 +28,17 @@
         name,
       }),
     },
+    ui: {
+      showStats: () => ({ stats: true }),
+    },
   }
 
-  const View = () => <Act />
+  const View = state => (
+    <div>
+      <Act />
+      {state.ui.stats && <h1>STATS</h1>}
+    </div>
+  )
 
   hyperapp.app(State, Actions, View, document.getElementById('a'))
 })(window)

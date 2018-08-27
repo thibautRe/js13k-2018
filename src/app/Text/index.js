@@ -139,7 +139,7 @@
               await HLP.T(actionIndex * 0.5 + (parseTimeToWait(text).ttw || 1))
               element.classList.add(actionButtonShow)
             }}
-            onclick={() => topLevelActions.acts.changeAct(action.target)}
+            onclick={action.onclick}
           >
             {action.text}
           </button>

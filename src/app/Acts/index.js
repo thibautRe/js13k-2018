@@ -45,8 +45,16 @@
       '4Well, start the big project that we talked about of course!',
       '3Our big project of %0deleting the Internet%0.',
       "2You didn't forget, did you?",
-      'Of course not:NotImplemented',
+      'Of course not:Go',
     ],
+    Go: () => (state, actions) => (
+      <Text
+        text="2Anyway, are you %0ready%0?"
+        actions={[
+          { text: "Of course, let's go!", onclick: actions.ui.showStats },
+        ]}
+      />
+    ),
     NotImplemented: ['Not implemented', 'Back to start:Intro'],
   }
 
@@ -56,7 +64,7 @@
       .map(singleActionString => singleActionString.split(':'))
       .map(([text, target]) => ({ text, target }))
 
-  window.Act = () => ({ acts: { name, step } }) => (
+  window.Act = () => ({ acts: { name, step } }, actions) => (
     <div class={wrapper}>
       {/* Text arrays */}
       {Array.isArray(allActs[name]) && (
@@ -64,7 +72,12 @@
           text={allActs[name][step]}
           actions={
             step === allActs[name].length - 2
-              ? parseActions(allActs[name][step + 1])
+              ? parseActions(allActs[name][step + 1]).map(
+                  ({ text, target }) => ({
+                    text,
+                    onclick: () => actions.acts.changeAct(target),
+                  }),
+                )
               : undefined
           }
         />
