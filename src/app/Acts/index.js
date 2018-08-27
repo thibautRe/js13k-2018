@@ -61,8 +61,7 @@
       {/* Text arrays */}
       {Array.isArray(allActs[name]) && (
         <Text
-          act={allActs[name]}
-          actStep={step}
+          text={allActs[name][step]}
           actions={
             step === allActs[name].length - 2
               ? parseActions(allActs[name][step + 1])

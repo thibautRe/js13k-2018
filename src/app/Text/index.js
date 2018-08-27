@@ -20,7 +20,7 @@
     )
   const effect2 = CS('display:inline-block;')
   const effect3 = CS('font-style:italic;')
-  const text = CS(
+  const textClass = CS(
     'position:absolute;max-width:700px;transition: opacity 1s;opacity:0;text-align:center',
   )
   const textVisible = CS('opacity: 1;')
@@ -107,23 +107,20 @@
   }
 
   // actions = arrayof(shape({ text, target }))
-  window.Text = ({ act = [], actStep, actions = [] }) => (
-    state,
-    topLevelActions,
-  ) => (
+  window.Text = ({ text, actions = [] }) => (state, topLevelActions) => (
     <div
-      key={act[actStep]}
-      class={text}
+      key={text}
+      class={textClass}
       oncreate={async element => {
         // Enter animation
         await HLP.T(0.015)
         element.classList.add(textVisible)
 
         // Pass to next step
-        if (actStep < act.length - 2) {
+        if (!actions.length) {
           // The time to wait until the next step is the number at the
           // beginning of the string, if any, or 1 second.
-          await HLP.T(parseTimeToWait(act[actStep]).ttw || 1)
+          await HLP.T(parseTimeToWait(text).ttw || 1)
           topLevelActions.acts.nextStep()
         }
       }}
@@ -133,15 +130,13 @@
         setTimeout(done, 1000)
       }}
     >
-      {splitSpaces(parser(parseTimeToWait(act[actStep]).text))}
+      {splitSpaces(parser(parseTimeToWait(text).text))}
       <div class={actionsWrapper}>
         {actions.map((action, actionIndex) => (
           <button
             class={actionButton}
             oncreate={async element => {
-              await HLP.T(
-                actionIndex * 0.5 + (parseTimeToWait(act[actStep]).ttw || 1),
-              )
+              await HLP.T(actionIndex * 0.5 + (parseTimeToWait(text).ttw || 1))
               element.classList.add(actionButtonShow)
             }}
             onclick={() => topLevelActions.acts.changeAct(action.target)}
